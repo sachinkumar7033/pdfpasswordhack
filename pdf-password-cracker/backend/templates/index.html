@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Password Recovery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+   
+    
+    <style>
+        /* Basic styling for the body */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color:white;
+        }
+
+        
+        
+
+        /* Navigation Bar Styles */
+        nav {
+            background-color: #333;
+            padding: 10px;
+            text-align: center;
+            height: 40px;
+        }
+
+        nav h1 {
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            margin: 0;
+            margin-top: 8px;
+        }
+
+        /* Container for the content */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: auto;
+            padding: 20px;
+        }
+
+        .description-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 1000px; /* Increased max-width */
+            text-align: left;
+            display: flex;
+            flex-direction: column; /* Stack on smaller screens */
+        }
+        
+        .content-wrapper {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start; /* Align items at the top */
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        }
+        
+        .text-content {
+            flex: 2;
+        }
+        
+        
+        h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        ol {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        
+        ol li {
+            margin-bottom: 15px;
+        }
+        
+        .special-note {
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        
+        .download-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #000000; /* Black color */
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 30px;
+        }
+        
+        .download-button:hover {
+            background-color: #45a049;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                flex-direction: column; /* Stack text and image */
+            }
+        
+            .image-content {
+                text-align: center;
+                margin-top: 20px; /* Add spacing between text and image */
+            }
+        
+            h2 {
+                font-size: 24px;
+            }
+        
+            p, ol li {
+                font-size: 14px;
+            }
+        }
+        
+        /* Container for form and caption with glassmorphism */
+        .container2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* Less transparent white background */
+            backdrop-filter: blur(20px); /* Stronger blur effect */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+            border-radius: 10px;
+            margin: 20px;
+            max-width: 100%;
+            width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Optional border to enhance the effect */
+        }
+        
+/* Styling for the form */
+.form-box2 {
+    width: 100%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Flexbox for file inputs to appear in a row */
+.upload-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap; /* Allow inputs to wrap on small screens */
+}
+
+.upload-container div {
+    flex: 1 1 48%; /* Each input field takes 48% of the width */
+    min-width: 200px; /* Minimum width to avoid too small inputs */
+}
+
+form label,
+form input,
+form button {
+    margin-bottom: 10px;
+}
+
+form input,
+form button {
+    padding: 10px;
+    font-size: 14px;
+    width: 100%; /* Inputs take full width */
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Styling for caption */
+.caption {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    background-color: #FFFFFF; /* White color */
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    line-height: 1.5;
+    margin-top: 20px;
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 1024px) {
+    /* Tablet view */
+    .container2 {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .upload-container {
+        flex-direction: column; /* Stack inputs vertically on tablets */
+        align-items: flex-start;
+    }
+
+    .upload-container div {
+        flex: 1 1 100%; /* Make inputs full-width on tablets */
+        margin-bottom: 10px; /* Add space between stacked inputs */
+    }
+
+    .caption {
+        font-size: 20px;
+    }
+
+    form button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Mobile view */
+    .container2 {
+        padding: 15px;
+        margin: 10px;
+    }
+
+    .upload-container {
+        flex-direction: column; /* Stack inputs vertically on small screens */
+    }
+
+    .upload-container div {
+        flex: 1 1 100%; /* Make inputs full-width */
+    }
+
+    .caption {
+        font-size: 18px;
+        margin-top: 20px;
+    }
+
+    form button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Very small mobile devices */
+    .caption {
+        font-size: 16px;
+        line-height: 1.4;
+    }
+
+    form input,
+    form button {
+        font-size: 14px; /* Make text size a bit smaller */
+    }
+
+    .download-button {
+        font-size: 14px; /* Make the download button text size smaller */
+        padding: 8px 16px; /* Reduce padding for smaller screens */
+    }
+
+    .container2 {
+        padding: 10px;
+        margin: 5px;
+    }
+
+    .description-box {
+        width: 100%; /* Full width for the description box on small screens */
+        padding: 10px;
+    }
+
+    h2 {
+        font-size: 24px; /* Smaller heading size on small devices */
+    }
+
+    p {
+        font-size: 14px; /* Smaller paragraph text size */
+    }
+
+    ol li {
+        font-size: 14px; /* Smaller list item font size */
+    }
+}
+        h1 {
+            text-align: center;
+            font-size: 40px;
+            margin: 20px 0;
+        }
+
+        /* Flexbox layout */
+        .container3 {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Left section styles */
+        .left-section {
+            flex: 1 1 300px;
+            text-align: center;
+        }
+
+        /* General image styling */
+        img {
+            width: 150px; /* Set a smaller width for the image */
+            height: 150px; /* Match height to maintain square aspect ratio */
+            object-fit: cover; /* Ensures the image scales correctly inside the circle */
+            border-radius: 50%; /* Makes the image circular */
+            border: 3px solid blue; /* Adds a blue border around the circle */
+            margin: 20px auto; /* Centers the image and adds spacing */
+            display: block; /* Ensures proper alignment */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a shadow for better aesthetics */
+            transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; /* Smooth transition effect */
+          }
+          
+          img:hover {
+            box-shadow: 0 0 15px 5px rgba(173, 216, 230, 0.8), 0 0 30px rgba(173, 216, 230, 0.5); /* Light blue neon glow */
+            transform: scale(1.05); /* Slight zoom effect */
+          }
+          
+        
+        .name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .social-links a {
+            margin: 0 10px;
+            font-size: 20px;
+            color: #333; /* Default color for the icons */
+            text-decoration: none;
+            transition: color 0.3s ease, text-shadow 0.3s ease; /* Smooth transition for hover effects */
+          }
+          
+          .social-links a:hover {
+            color: #00bfff; /* Bright blue color */
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.8), 0 0 20px rgba(0, 191, 255, 0.6), 0 0 30px rgba(0, 191, 255, 0.5); /* Neon glow effect */
+          }
+          
+
+        .short-intro {
+            font-size: 16px;
+            color: #555;
+            margin-top: 15px;
+            line-height: 1.6;
+        }
+
+        /* Right section styles */
+        .right-section {
+            flex: 1 1 400px;
+            max-width: 400px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .right-section h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .contact-form label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form button {
+            width: 95%;
+            padding: 8px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .contact-form textarea {
+            resize: none;
+            max-height: 150px;
+            height: 100px;
+        }
+
+        .contact-form button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .contact-form button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .left-section,
+            .right-section {
+                width: 100%;
+                max-width: 600px;
+            }
+
+            .left-section {
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 32px;
+            }
+
+            .right-section h2 {
+                font-size: 20px;
+            }
+
+            .contact-form input,
+            .contact-form textarea,
+            .contact-form button {
+                font-size: 12px;
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .left-section,
+            .right-section {
+                width: 100%;
+                max-width: 600px;
+            }
+
+            .left-section {
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 32px;
+            }
+
+            .right-section h2 {
+                font-size: 24px;
+            }
+
+            .contact-form input,
+            .contact-form textarea,
+            .contact-form button {
+                font-size: 14px;
+            }
+        }
+
+        /* Footer Styling */
+.footer {
+  background-color: #000; /* Black background */
+  color: #fff; /* White text */
+  text-align: center; /* Center the text */
+  padding: 15px 10px; /* Add some padding */
+  font-size: 16px; /* Font size for the text */
+  font-weight: 500; /* Slightly bold */
+  margin-top: 20px; /* Space from the content above */
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow above the footer */
+}
+
+/* Text Styling */
+.footer p {
+  margin: 0; /* Remove default margin */
+  line-height: 1.5; /* Spacing for better readability */
+} 
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar with Text -->
+    <nav>
+        <h1>TechyTouch</h1> <!-- Centered and bold text -->
+    </nav>
+
+    <!-- Form Box for PDF and Wordlist Upload -->
+    <div class="container">
+        <!-- Step-by-Step Instructions Box -->
+        <div class="description-box">
+            <div class="content-wrapper">
+                <div class="text-content">
+                    <h2>STEP TO RECOVER PDF PASSWORD</h2>
+                    <ol>
+                        <li><strong>Step 1:</strong> Download the wordlist file below, containing up to 8 billion common passwords for testing your PDF's password.</li>
+                        <li><strong>Step 2:</strong> Upload the wordlist file by selecting the file you downloaded from the previous step.</li>
+                        <li><strong>Step 3:</strong> Upload the locked PDF file that you wish to recover the password for.</li>
+                    </ol>
+                    <div class="special-note">
+                        <p>Often derived from common words or phrases. This technique exploits the tendency of users to choose weak or easily guessable passwords.</p>
+                        <p style="color:red;"><strong>Special Note:</strong></p>
+                        <p style="color:red;">Please note that there is a chance the password is too tough and may take a long time to find among the 8 billion passwords in the wordlist. There is also a chance that your password might not be in the wordlist at all, meaning recovery is not guaranteed.</p>
+                        <p>"If the wordlist file cannot be downloaded, you can directly email it to me. I will send you the wordlist file.<br> email ID: sachinkumar7033777@gmail.com."</p>
+                    </div>
+                    <a href="{{ url_for('static', filename='wordlist/common_passwords.txt') }}" class="download-button" download>
+                        <i class="fas fa-download"></i>
+                        <span>Download Wordlist</span>
+                    </a>
+                    
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+
+    <!--box2-->
+    <div class="container2">
+        <!-- Form Box for PDF Upload and Wordlist Upload -->
+        <div class="form-box2">
+            <h1>PDF Password Recovery</h1>
+            <form action="/recover" method="POST" enctype="multipart/form-data">
+                <!-- Row for PDF and Wordlist Upload -->
+                <div class="upload-container">
+                    <div>
+                        <label for="wordlist">Upload Wordlist File</label>
+                        <input type="file" name="wordlist" id="wordlist">
+                    </div>
+                    <div>
+                        <label for="pdf">Upload PDF File</label>
+                        <input type="file" name="pdf" id="pdf" required>
+                    </div>
+                </div>
+                <button type="submit">Start Recovery</button>
+            </form>
+        </div>
+        <div class="caption">
+            Remove password from PDF online easily for free.❤️
+        </div>
+    </div>
+
+      <!-- Page Heading -->
+      <h1>About Developer</h1>
+
+      <!-- Main Content -->
+      <div class="container3">
+  
+          <!-- Left Section -->
+          <div class="left-section">
+            <img src="{{ url_for('static', filename='images/myimage.jpg') }}">
+
+             <div class="name">Sachin Kumar</div>
+              <div class="social-links">
+                <a href="https://www.linkedin.com/in/sachin-kumar-42708a2ab/" target="_blank" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/sachinkumar7033" target="_blank" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.instagram.com/sch__nx/" target="_blank" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://snapchat.com/t/2aI59j67" target="_blank" title="Snapchat">
+                    <i class="fab fa-snapchat"></i>
+                </a>
+                <a href="mailto:sachinkumar7033777@gmail.com" target="_blank" title="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+              <div class="short-intro">
+                Hi, I'm <span style="color: blue;">Sachin Kumar</span>, a dedicated and passionate software developer from Jharkhand, India. I am currently pursuing a Bachelor of Computer Applications (BCA) and have a deep enthusiasm for software development.
+                With hands-on experience in building innovative projects, I continually strive to learn and grow in this dynamic field. If I can assist you in any way, <b>feel free to connect with me.</b>
+              </div>
+          </div>
+  
+          <!-- Right Section -->
+          <div class="right-section">
+              <h2>Contact Me</h2>
+              <form class="contact-form">
+                  <label for="name">Your Name</label>
+                  <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                  <label for="email">Your Email</label>
+                  <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                  <label for="message">Message</label>
+                  <textarea id="message" name="message" rows="5" placeholder="Enter your message" required></textarea>
+                  <button type="submit">Send Message</button>
+              </form>
+             
+          </div>
+  
+      </div>
+      <footer class="footer">
+        <p>© Sachin Kumar - Made with ❤️ for the people.</p>
+      </footer>
+
+     
+      <script>
+        document.querySelector("form").addEventListener("submit", function(event) {
+            const pdfFile = document.getElementById("pdf").files[0];
+            const wordlistFile = document.getElementById("wordlist").files[0];
+            if (!pdfFile) {
+                alert("Please upload a PDF file.");
+                event.preventDefault();
+            } else if (wordlistFile && !wordlistFile.name.endsWith(".txt")) {
+                alert("Please upload a valid wordlist file (.txt).");
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

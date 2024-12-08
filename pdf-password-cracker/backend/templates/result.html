@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Recovery Result</title>
+    <style>
+        /* Make the background cover the full page */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image:  url("{{ url_for('static', filename='images/cracking.jpg') }}"); /* Flask URL for image */
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Container for the result page content */
+        .container {
+            width: 80%;
+            text-align: center;
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.8); /* White background with opacity for readability */
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Styling for the button */
+        .btn {
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White text */
+            padding: 14px 20px; /* Add some padding */
+            text-align: center; /* Center text */
+            text-decoration: none; /* Remove underline */
+            display: inline-block; /* Allow button to sit inline */
+            font-size: 16px; /* Increase font size */
+            border: none; /* Remove border */
+            border-radius: 8px; /* Rounded corners */
+            cursor: pointer; /* Pointer on hover */
+            transition: background-color 0.3s ease;
+        }
+
+        /* Change color when hovered */
+        .btn:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Password Recovery Result</h1>
+        <p>{{ result }}</p> <!-- Display the result passed from the Flask app -->
+        <br><br>
+
+        <!-- Go Back Button -->
+        <button class="btn" onclick="window.location.href='/'">Go Back</button>
+    </div>
+</body>
+</html>
